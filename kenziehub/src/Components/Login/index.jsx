@@ -31,7 +31,7 @@ export function Login({ isLogged, setIsLogged, isError, setIsError }) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = (data) => {
-    ler(data, isLogged, setIsLogged, isError, setIsError);
+    ler(data, setIsLogged, setIsError);
   };
 
   function closeError() {
@@ -76,12 +76,12 @@ export function Login({ isLogged, setIsLogged, isError, setIsError }) {
           <label>
             <p>Email</p>
             <input type="email" {...register("email")} />
-            {errors.email?.message}
+            {errors.email && (<p>{errors.email.message}</p>)}
           </label>
           <label>
             <p>Senha</p>
             <input type="password" {...register("password")} />
-            {errors.password?.message}
+            {errors.password && (<p>{errors.password.message}</p>)}
           </label>
           <button
             onClick={

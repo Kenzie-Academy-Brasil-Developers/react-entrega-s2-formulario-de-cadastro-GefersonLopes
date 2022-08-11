@@ -29,10 +29,10 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
         .required(),
       passwordConfirmation: yup
         .string()
-        .oneOf([yup.ref("password"), null], "Senhas não coincidem"),
-      bio: yup.string().max(100),
-      contact: yup.string(),
-      course_module: yup.string(),
+        .oneOf([yup.ref("password"), null], "*Senhas não coincidem*"),
+      bio: yup.string().max(100).required("*Campo obrigatório*"),
+      contact: yup.string().required("*Campo obrigatório*"),
+      course_module: yup.string().required("*Campo obrigatório*"),
     })
     .required();
 
@@ -101,7 +101,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="DIgite aqui seu email"
                 {...register("email")}
               />
-              {errors.email?.message}
+              {errors.email && (<p>{errors.email.message}</p>)}
             </label>
             <label>
               <p>Senha</p>
@@ -110,7 +110,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Digite aqui sua senha"
                 {...register("password")}
               />
-              {errors.password?.message}
+              {errors.password && (<p>{errors.password.message}</p>)}
             </label>
             <label>
               <p>Confirmar senha</p>
@@ -119,7 +119,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Confirme sua senha"
                 {...register("passwordConfirmation")}
               />
-              {errors.passwordConfirmation?.message}
+              {errors.passwordConfirmation && (<p>{errors.passwordConfirmation.message}</p>)}
             </label>
             <label>
               <p>Bio</p>
@@ -128,6 +128,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Fale sobre você"
                 {...register("bio")}
               />
+              {errors.bio && (<p>{errors.bio.message}</p>)}
             </label>
             <label>
               <p>Contato</p>
@@ -136,6 +137,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Opção de contato"
                 {...register("contact")}
               />
+              {errors.contact && (<p>{errors.contact.message}</p>)}
             </label>
             <label>
               <p>Selecionar módulo</p>
@@ -153,18 +155,10 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                   Quarto módulo (Backend Avançado)
                 </option>
               </select>
-            </label>
-            {isLogged ? (
-              <Link to="/home">
-                <button type="submit" className="btnRegister">
-                  Cadastrar
-                </button>
-              </Link>
-            ) : (
               <button type="submit" className="btnRegister">
                 Cadastrar
               </button>
-            )}
+            </label>  
           </form>
         </DivCadastrar>
       </div>
@@ -173,7 +167,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
           <div className="container-card">
             <img className="logo" src={fetchImg} alt="" />
             <p>
-              Conta criada com sucesso! <br /> Clique novamente em cadastrar
+              Conta criada com sucesso! <br/> realize seu login
             </p>
           </div>
           <div className="color-green"></div>

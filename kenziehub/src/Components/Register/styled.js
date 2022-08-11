@@ -9,7 +9,7 @@ export const Main = styled.main`
 export const DivCadastrar = styled.div`
 
     width: 16.6rem;
-    height: 34rem;
+    height-max: 39rem;
     margin: 1rem auto;
     padding: 1.8rem 1.4rem;
 

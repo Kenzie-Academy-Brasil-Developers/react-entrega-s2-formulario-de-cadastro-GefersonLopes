@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Div = styled.div`
 
     width: 16.6rem;
-    height: 22rem;
+    height-max: 24rem;
     margin: 0 auto;
     padding: 1.8rem 1.4rem;
 
