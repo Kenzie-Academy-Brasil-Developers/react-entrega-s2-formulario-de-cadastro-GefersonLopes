@@ -4,6 +4,12 @@ body {
 
 }
 
+body::-webkit-scrollbar {
+
+  display: none;
+
+}
+
 #root {
 
   width: 100%;

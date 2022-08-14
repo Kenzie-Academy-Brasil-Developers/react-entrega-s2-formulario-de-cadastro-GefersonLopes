@@ -1,22 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logo from "../imgComponents/login/logo.png";
-import { Conteudo, Header, Line, Main } from "./styled";
+import {  Header, Line, Main } from "./styled";
+import { ContentMain } from "../Main";
 import "./style.css";
+import { useContext } from "react";
+import { Context } from "../Context/Auth";
 
-export function Home({isLogged,setIsLogged}) {
 
+export function Home() {
+
+  const {setIsLogged,tecnology,setTecnology,isModal,setIsModal} = useContext(Context);
   const dataSalve = JSON.parse(localStorage.getItem("salveData"));
-  
+  const token = localStorage.getItem("@token");
+  const history = useHistory();
+
+
   function close() {
 
     setIsLogged(undefined);
-    localStorage.removeItem("salveData");
+    /* localStorage.removeItem("salveData");
+    localStorage.removeItem("@Techs");
+    localStorage.removeItem("@token"); */
+    localStorage.clear();
 
   }
 
   return (
     <>
-      <Header>
+      {token ? 
+        <>
+          <Header>
         <nav>
           <img src={logo} alt="logo" />
         </nav>
@@ -34,13 +47,11 @@ export function Home({isLogged,setIsLogged}) {
       <Line></Line>
 
       <div id="conteudo">
-        <Conteudo>
-          <h1>Que pena! Estamos em desenvolvimento :(</h1>
-          <p>
-            Nossa aplicação está em desenvolvimento, em breve teremos novidades
-          </p>
-        </Conteudo>
+        <ContentMain isModal={isModal} setIsModal={setIsModal} tecnology={tecnology} setTecnology={setTecnology} />
       </div>
+        </> :
+      history.push("/")
+      }
     </>
   );
 }

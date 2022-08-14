@@ -9,8 +9,13 @@ import fetchImg from "../imgComponents/models/get.png";
 import xImg from "../imgComponents/models/x.png";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useContext } from "react";
+import { Context } from "../Context/Auth";
 
-export function Login({ isLogged, setIsLogged, isError, setIsError }) {
+export function Login() {
+  
+  const { isLogged, setIsLogged, isError, setIsError } = useContext(Context);
+
   const history = useHistory();
 
   const handleNavigation = (path) => {
@@ -76,12 +81,12 @@ export function Login({ isLogged, setIsLogged, isError, setIsError }) {
           <label>
             <p>Email</p>
             <input type="email" {...register("email")} />
-            {errors.email && (<p>{errors.email.message}</p>)}
+            {errors.email && <p>{errors.email.message}</p>}
           </label>
           <label>
             <p>Senha</p>
             <input type="password" {...register("password")} />
-            {errors.password && (<p>{errors.password.message}</p>)}
+            {errors.password && <p>{errors.password.message}</p>}
           </label>
           <button
             onClick={

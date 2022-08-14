@@ -10,9 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
 import axios from "axios";
+import { useContext } from "react";
+import { Context } from "../Context/Auth";
 YupPassword(yup);
 
-export function Register({ isLogged, setIsLogged, isError, setIsError }) {
+export function Register() {
+  
+  const { isLogged, setIsLogged, isError, setIsError } = useContext(Context);
 
   const schema = yup
     .object()
@@ -44,7 +48,6 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-
     const name = data?.name;
     const email = data?.email;
     const password = data?.password;
@@ -62,12 +65,10 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
         course_module,
       })
       .then((res) => {
-
         setIsLogged(true);
         localStorage.setItem("salveData", JSON.stringify(res));
       })
       .catch((err) => {
-
         setIsLogged(false);
         setIsError(true);
       });
@@ -101,7 +102,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="DIgite aqui seu email"
                 {...register("email")}
               />
-              {errors.email && (<p>{errors.email.message}</p>)}
+              {errors.email && <p>{errors.email.message}</p>}
             </label>
             <label>
               <p>Senha</p>
@@ -110,7 +111,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Digite aqui sua senha"
                 {...register("password")}
               />
-              {errors.password && (<p>{errors.password.message}</p>)}
+              {errors.password && <p>{errors.password.message}</p>}
             </label>
             <label>
               <p>Confirmar senha</p>
@@ -119,7 +120,9 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Confirme sua senha"
                 {...register("passwordConfirmation")}
               />
-              {errors.passwordConfirmation && (<p>{errors.passwordConfirmation.message}</p>)}
+              {errors.passwordConfirmation && (
+                <p>{errors.passwordConfirmation.message}</p>
+              )}
             </label>
             <label>
               <p>Bio</p>
@@ -128,7 +131,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Fale sobre você"
                 {...register("bio")}
               />
-              {errors.bio && (<p>{errors.bio.message}</p>)}
+              {errors.bio && <p>{errors.bio.message}</p>}
             </label>
             <label>
               <p>Contato</p>
@@ -137,7 +140,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
                 placeholder="Opção de contato"
                 {...register("contact")}
               />
-              {errors.contact && (<p>{errors.contact.message}</p>)}
+              {errors.contact && <p>{errors.contact.message}</p>}
             </label>
             <label>
               <p>Selecionar módulo</p>
@@ -158,7 +161,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
               <button type="submit" className="btnRegister">
                 Cadastrar
               </button>
-            </label>  
+            </label>
           </form>
         </DivCadastrar>
       </div>
@@ -167,7 +170,7 @@ export function Register({ isLogged, setIsLogged, isError, setIsError }) {
           <div className="container-card">
             <img className="logo" src={fetchImg} alt="" />
             <p>
-              Conta criada com sucesso! <br/> realize seu login
+              Conta criada com sucesso! <br /> realize seu login
             </p>
           </div>
           <div className="color-green"></div>

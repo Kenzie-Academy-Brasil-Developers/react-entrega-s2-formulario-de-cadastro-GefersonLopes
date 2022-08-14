@@ -1,8 +1,3 @@
-#conteudo {
-
-    display: none;
-
-}
 
 @media (min-width:768px) {
 
@@ -19,6 +14,7 @@
     #conteudo {
 
         display: initial;
+        position: relative;
 
     }
 

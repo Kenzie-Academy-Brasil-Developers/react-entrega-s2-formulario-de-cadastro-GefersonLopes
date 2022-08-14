@@ -2,30 +2,26 @@ import { Route, Switch } from "react-router-dom";
 import { Home } from "../Components/Home";
 import { Login } from "../Components/Login";
 import { Register } from "../Components/Register";
-import { useState } from "react";
 
 export function Rotes() {
-
-  const [isLogged, setIsLogged] = useState(undefined);
-  const [isError,setIsError] = useState(true);
 
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <Login isLogged={isLogged} setIsLogged={setIsLogged} isError={isError} setIsError={setIsError} />
+          <Login/>
         </Route>
       </Switch>
 
       <Switch>
         <Route exact path="/register">
-          <Register isLogged={isLogged} setIsLogged={setIsLogged} isError={isError} setIsError={setIsError} />
+          <Register/>
         </Route>
       </Switch>
 
       <Switch>
         <Route exact path="/home">
-          <Home isLogged={isLogged} setIsLogged={setIsLogged} />
+          <Home/>
         </Route>
       </Switch>
     </>
