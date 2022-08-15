@@ -16,6 +16,9 @@ export function ler(data,setIsLogged,setIsError) {
   })
   .then(function (response) {
     salve = response;
+    RequestTechs();
+    /* console.log(salve.data.user.techs);
+    localStorage.setItem("@Techs", JSON.stringify(salve.data.user.techs)); */
     localStorage.setItem("salveData", JSON.stringify(salve));
     localStorage.setItem("@token", JSON.stringify(salve.data.token));
     setIsLogged(true);

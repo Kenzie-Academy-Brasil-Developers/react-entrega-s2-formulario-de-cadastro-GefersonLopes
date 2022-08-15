@@ -1,15 +1,34 @@
 import { Content } from "./styled";
 import add from "../imgComponents/home/add.png";
 import removeItem from "../imgComponents/home/removeItem.png";
-import { CreateTecnology } from "../CreateTecnology";
+import { config, CreateTecnology, token, url } from "../CreateTecnology";
 import { RemoveTech } from "../RemoveTech";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 export function ContentMain({ tecnology, setTecnology, isModal, setIsModal }) {
   
   const modalTrue = () => setIsModal(!isModal);
-  const techs = JSON.parse(localStorage.getItem("@Techs"));
+  const [techsList,setTechsList] = useState([]);
+  
+  if(token){
 
+    axios
+      .get(url + "profile", config)
+      .then(function (response) {
+        const data = response.data.techs;
+        //console.log(data);
+        setTechsList(data)
+        //localStorage.setItem("@Techs", JSON.stringify(data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
+  }
+  
+  
   return (
     <>
       <CreateTecnology isModal={isModal} setIsModal={setIsModal} />
@@ -20,9 +39,9 @@ export function ContentMain({ tecnology, setTecnology, isModal, setIsModal }) {
             <img id="imgAdd" src={add} alt="adicionar" />
           </button>
         </div>
-        { techs && techs.length > 0 && (
+        { techsList && techsList.length > 0 && (
           <ul>
-            {techs.map((tech,index) => (
+            {techsList.map((tech,index) => (
               <li id={tech.id} key={tech.id} className="list_Content">
                 <h3 className="title_List">{tech.title}</h3>
                 <div className="container_Rigth">
