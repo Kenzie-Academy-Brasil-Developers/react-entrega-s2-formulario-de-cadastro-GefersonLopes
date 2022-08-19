@@ -4,7 +4,7 @@ import {  Header, Line, Main } from "./styled";
 import { ContentMain } from "../Main";
 import "./style.css";
 import { useContext } from "react";
-import { Context } from "../Context/Auth";
+import { Context } from "../../Context/Auth";
 
 
 export function Home() {
@@ -14,13 +14,9 @@ export function Home() {
   const token = localStorage.getItem("@token");
   const history = useHistory();
 
-
   function close() {
 
     setIsLogged(undefined);
-    /* localStorage.removeItem("salveData");
-    localStorage.removeItem("@Techs");
-    localStorage.removeItem("@token"); */
     localStorage.clear();
 
   }

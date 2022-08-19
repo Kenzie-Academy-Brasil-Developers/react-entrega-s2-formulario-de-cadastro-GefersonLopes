@@ -2,7 +2,6 @@ import logo from "../imgComponents/login/logo.png";
 import { Div, DivImg } from "./styled";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { ler } from "../../Request";
 import { Error, Fetch } from "../Register/styled";
 import errorImg from "../imgComponents/models/error.png";
 import fetchImg from "../imgComponents/models/get.png";
@@ -10,11 +9,11 @@ import xImg from "../imgComponents/models/x.png";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useContext } from "react";
-import { Context } from "../Context/Auth";
+import { Context } from "../../Context/Auth";
 
 export function Login() {
   
-  const { isLogged, setIsLogged, isError, setIsError } = useContext(Context);
+  const { isLogged, setIsLogged, isError, setIsError, ler } = useContext(Context);
 
   const history = useHistory();
 

@@ -5,7 +5,8 @@ import axios from "axios";
 
 
 import "./style.css";
-import { RequestTechs } from "../RequestTechs";
+import { useContext } from "react";
+import { Context } from "../../Context/Auth";
 
 export const url = "https://kenziehub.herokuapp.com/";
 
@@ -16,12 +17,9 @@ export const config = {
   headers: { Authorization: `Bearer ${token}` },
 };
 
-if(token){
-  RequestTechs();
-}
-
-export function CreateTecnology({ isModal, setIsModal }) {
+export function CreateTecnology() {
   
+  const { isModal, setIsModal} = useContext(Context);
   const modalTrue = () => setIsModal(!isModal);
 
   const { register, handleSubmit } = useForm();
@@ -41,7 +39,6 @@ export function CreateTecnology({ isModal, setIsModal }) {
       )
       .then(function (response) {
         console.log(response);
-        window.location.reload(true)
       })
       .catch(function (error) {
         console.log(error);

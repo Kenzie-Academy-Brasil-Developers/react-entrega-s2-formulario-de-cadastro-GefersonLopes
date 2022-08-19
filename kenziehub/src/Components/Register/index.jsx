@@ -11,7 +11,7 @@ import * as yup from "yup";
 import YupPassword from "yup-password";
 import axios from "axios";
 import { useContext } from "react";
-import { Context } from "../Context/Auth";
+import { Context } from "../../Context/Auth";
 YupPassword(yup);
 
 export function Register() {
