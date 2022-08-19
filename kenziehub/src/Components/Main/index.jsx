@@ -22,14 +22,12 @@ export function ContentMain() {
   const configToken = {
     headers: { Authorization: `Bearer ${arrayToken.join("")}` }
   }
-  console.log("Minha config: " , configToken )
   
   useEffect(() => {
 
     axios
     .get(url + "profile", configToken)
     .then(function (response) {
-      console.log(response);
       const data = response.data.techs;
       setTechsList(data);
     })
@@ -37,9 +35,7 @@ export function ContentMain() {
       console.log(error);
     });
 
-    //console.log(localStorage.getItem("@token"));
-
-  }, [])
+  }, [techsList])
 
   return (
     <>
