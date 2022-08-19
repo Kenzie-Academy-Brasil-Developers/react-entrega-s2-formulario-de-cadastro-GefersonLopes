@@ -1,7 +1,7 @@
 import { Content } from "./styled";
 import add from "../imgComponents/home/add.png";
 import removeItem from "../imgComponents/home/removeItem.png";
-import { config, url } from "../CreateTecnology";
+import { config, token, url } from "../CreateTecnology";
 
 import { useContext, useEffect } from "react";
 import axios from "axios";
@@ -11,14 +11,25 @@ export function ContentMain() {
   const { isModal, setIsModal, CreateTecnology, techsList, setTechsList,RemoveTech } =
     useContext(Context);
   const modalTrue = () => setIsModal(!isModal);
-  /* const dataSalve = JSON.parse(localStorage.getItem("salveData"));
-  const techsArray = dataSalve.data.user.techs; */
+  const tokenUser = localStorage.getItem("@token");
+  
+  const arrayToken = [];
+  for(let i = 1; i < tokenUser.length - 1; i++) {
+
+    arrayToken.push(tokenUser[i]);
+  }  
+  
+  const configToken = {
+    headers: { Authorization: `Bearer ${arrayToken.join("")}` }
+  }
+  console.log("Minha config: " , configToken )
   
   useEffect(() => {
 
     axios
-    .get(url + "profile", config)
+    .get(url + "profile", configToken)
     .then(function (response) {
+      console.log(response);
       const data = response.data.techs;
       setTechsList(data);
     })
@@ -26,6 +37,7 @@ export function ContentMain() {
       console.log(error);
     });
 
+    //console.log(localStorage.getItem("@token"));
 
   }, [])
 

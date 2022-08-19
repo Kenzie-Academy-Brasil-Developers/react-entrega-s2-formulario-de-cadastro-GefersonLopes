@@ -10,17 +10,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useContext } from "react";
 import { Context } from "../../Context/Auth";
+import axios from "axios";
 
+export let salve = "";
 export function Login() {
-  
-  const { isLogged, setIsLogged, isError, setIsError, ler } = useContext(Context);
+  //Importando funções e os hooks por contexto
+  const {
+    isLogged,
+    setIsLogged,
+    isError,
+    setIsError,
+    setToken,
+  } = useContext(Context);
 
-  const history = useHistory();
-
-  const handleNavigation = (path) => {
-    return history.push(path);
-  };
-
+  //requisição yup
   const schema = yup
     .object()
     .shape({
@@ -29,18 +32,59 @@ export function Login() {
     })
     .required();
 
+  //Capturar dados do formulario
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = (data) => {
-    ler(data, setIsLogged, setIsError);
+    ler(data, setIsLogged, setIsError,setToken);
   };
 
+  //fechar componente de erro
   function closeError() {
     setIsError(false);
   }
+
+  ////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
+  //Requisição Login//
+
+  const history = useHistory();
+  function ler(data,setIsLogged,setIsError) {
+  
+    const email = data?.email;
+    const password = data?.password;
+    const url = "https://kenziehub.herokuapp.com/";
+  
+    //fazer o loguin caso tenha feito corretamente
+    const handleNavigation = (path) => {
+      return history.push(path);
+    };
+  
+    return data !== undefined && axios
+    .post(url + "sessions", {
+      email,
+      password,
+    })
+    .then(function (response) {
+      salve = response;
+      localStorage.setItem("salveData", JSON.stringify(salve));
+      localStorage.setItem("@token", JSON.stringify(salve.data.token));
+      setIsLogged(true);
+  
+      handleNavigation("/home")
+      return response
+    })
+    .catch(function (error) {
+      handleNavigation("/")
+      setIsLogged(false);
+      setIsError(true)
+      console.log(error)
+    });
+  };
+  
 
   return (
     <>
@@ -88,11 +132,6 @@ export function Login() {
             {errors.password && <p>{errors.password.message}</p>}
           </label>
           <button
-            onClick={
-              isLogged
-                ? () => handleNavigation("/home")
-                : () => handleNavigation("/")
-            }
             type="submit"
             className="btnEntrar"
           >

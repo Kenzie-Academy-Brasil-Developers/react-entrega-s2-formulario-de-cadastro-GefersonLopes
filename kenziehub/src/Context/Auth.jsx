@@ -4,7 +4,6 @@ import { Login } from "../Components/Login";
 import { Register } from "../Components/Register";
 import { CreateTecnology } from "../Components/CreateTecnology";
 import {RemoveTech } from "../Components/RemoveTech";
-import { ler } from "../Request";
 
 export const Context = createContext();
 
@@ -15,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [tecnology, setTecnology] = useState([]);
   const [isModal, setIsModal] = useState(false);
   const [techsList,setTechsList] = useState([]);
+  const [token,setToken] = useState("");
 
   return (
     <Context.Provider
@@ -34,7 +34,8 @@ export const AuthProvider = ({ children }) => {
         techsList,
         setTechsList,
         RemoveTech,
-        ler,
+        token,
+        setToken
       }}
     >
       {children}
