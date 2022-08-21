@@ -1,49 +1,17 @@
 import { Div } from "../Login/styled";
 import { FormTecnologi, Header } from "./styled";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-
 
 import "./style.css";
 import { useContext } from "react";
 import { Context } from "../../Context/Auth";
 
-export const url = "https://kenziehub.herokuapp.com/";
-
-const salvedata = JSON.parse(localStorage.getItem("salveData"));
-export const token = salvedata?.data.token;
-
-export const config = {
-  headers: { Authorization: `Bearer ${token}` },
-};
-
 export function CreateTecnology() {
   
-  const { isModal, setIsModal} = useContext(Context);
-  const modalTrue = () => setIsModal(!isModal);
+
+  const { isModal, modalTrue, onSubmit } = useContext(Context);
 
   const { register, handleSubmit } = useForm();
-  
-  const onSubmit = (data) => {
-    const title = data?.title;
-    const status = data?.status;
-
-    axios
-      .post(
-        url + "users/techs",
-        {
-          title,
-          status,
-        },
-        config
-      )
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   return (
     <>

@@ -39,6 +39,7 @@ export const Header = styled.header`
         font-size: 12px;
 
         color: #868E96;
+        cursor: pointer;
 
     }
     
@@ -70,6 +71,7 @@ export const FormTecnologi = styled.form`
     button {
 
         margin: 2rem auto;
+        cursor: pointer;
 
     }
 

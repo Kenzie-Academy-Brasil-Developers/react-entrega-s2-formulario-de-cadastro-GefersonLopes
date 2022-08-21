@@ -1,22 +1,25 @@
-import { Link } from "react-router-dom";
 import logo from "../imgComponents/login/logo.png";
 import fetchImg from "../imgComponents/models/get.png";
 import errorImg from "../imgComponents/models/error.png";
 import xImg from "../imgComponents/models/x.png";
-import { DivCadastrar, DivImgCadastrar, Fetch, Error, Main } from "./styled";
 
+import { DivCadastrar, DivImgCadastrar, Fetch, Error, Main } from "./styled";
+import { Context } from "../../Context/Auth";
+
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import axios from "axios";
-import { useContext } from "react";
-import { Context } from "../../Context/Auth";
+
+
 YupPassword(yup);
 
 export function Register() {
   
-  const { isLogged, setIsLogged, isError, setIsError } = useContext(Context);
+  const { isLogged, isError, closeError, onSubmitRegister } = useContext(Context);
 
   const schema = yup
     .object()
@@ -47,36 +50,7 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    const name = data?.name;
-    const email = data?.email;
-    const password = data?.password;
-    const bio = data?.bio;
-    const contact = data?.contact;
-    const course_module = data?.course_module;
-
-    axios
-      .post("https://kenziehub.herokuapp.com/users", {
-        name,
-        email,
-        password,
-        bio,
-        contact,
-        course_module,
-      })
-      .then((res) => {
-        setIsLogged(true);
-        localStorage.setItem("salveData", JSON.stringify(res));
-      })
-      .catch((err) => {
-        setIsLogged(false);
-        setIsError(true);
-      });
-  };
-
-  function closeError() {
-    setIsError(false);
-  }
+  
 
   return (
     <Main>
@@ -89,7 +63,7 @@ export function Register() {
         </DivImgCadastrar>
 
         <DivCadastrar>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmitRegister)}>
             <h3>Crie sua conta</h3>
             <p className="message">Rapido e grátis, vamos nessa</p>
             <label>

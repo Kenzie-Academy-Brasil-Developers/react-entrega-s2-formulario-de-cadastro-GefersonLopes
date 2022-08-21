@@ -39,6 +39,7 @@ export const Content = styled.section`
 
         background: #1f1f1f;
         border-radius: 4px;
+        cursor: pointer;
         
     }
 
@@ -153,6 +154,7 @@ export const Content = styled.section`
 
         background-color: transparent;
         border: none;
+        cursor: pointer;
    
     }
 

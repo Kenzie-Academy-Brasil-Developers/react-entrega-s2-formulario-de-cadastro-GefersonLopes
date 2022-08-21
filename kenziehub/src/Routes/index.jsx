@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Context } from "../Context/Auth";
+import { Home } from "../Components/Home";
+import { Login } from "../Components/Login";
+import { Register } from "../Components/Register";
 
 export function Rotes() {
-  const { Home, Login, Register } = useContext(Context);
   
 
   return (

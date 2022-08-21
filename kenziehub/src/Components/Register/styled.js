@@ -142,14 +142,16 @@ export const DivCadastrar = styled.div`
 
         border: 1.2182px solid #FF577F;
         border-radius: 4.06066px;
-
+        cursor: pointer;
+        
     }
-
+    
     .btnRegister {
-
+        
         background: #59323F;
         border: #59323F;
-
+        cursor: pointer;
+        
     }
 
 
@@ -214,6 +216,7 @@ export const DivImgCadastrar = styled.div`
         line-height: 23px;
 
         text-align: center;
+        cursor: pointer;
 
 
     }

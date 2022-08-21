@@ -9,17 +9,10 @@ import { Context } from "../../Context/Auth";
 
 export function Home() {
 
-  const {setIsLogged,tecnology,setTecnology,isModal,setIsModal} = useContext(Context);
+  const {tecnology,setTecnology,isModal,setIsModal,close} = useContext(Context);
   const dataSalve = JSON.parse(localStorage.getItem("salveData"));
   const token = localStorage.getItem("@token");
   const history = useHistory();
-
-  function close() {
-
-    setIsLogged(undefined);
-    localStorage.clear();
-
-  }
 
   return (
     <>
