@@ -111,6 +111,7 @@ export const Div = styled.div`
     .btnEntrar {
 
         margin: 0;
+        cursor: pointer;
 
     }
 
@@ -118,6 +119,7 @@ export const Div = styled.div`
 
         background: #868E96;
         border: #868E96;
+        cursor: pointer;
 
     }
 

@@ -1,22 +1,33 @@
 import logo from "../imgComponents/login/logo.png";
-import { Div, DivImg } from "./styled";
-import { Link, useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { ler } from "../../Request";
-import { Error, Fetch } from "../Register/styled";
 import errorImg from "../imgComponents/models/error.png";
 import fetchImg from "../imgComponents/models/get.png";
 import xImg from "../imgComponents/models/x.png";
+
+import { Div, DivImg } from "./styled";
+import { Error, Fetch } from "../Register/styled";
+import { Context } from "../../Context/Auth";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-export function Login({ isLogged, setIsLogged, isError, setIsError }) {
-  const history = useHistory();
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
 
-  const handleNavigation = (path) => {
-    return history.push(path);
-  };
 
+export function Login() {
+  
+  const {
+    isLogged,
+    setIsLogged,
+    isError,
+    setIsError,
+    setToken,
+    ler,
+    closeError,
+  } = useContext(Context);
+
+  //requisição yup
   const schema = yup
     .object()
     .shape({
@@ -25,19 +36,16 @@ export function Login({ isLogged, setIsLogged, isError, setIsError }) {
     })
     .required();
 
+  //Capturar dados do formulario
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = (data) => {
-    ler(data, setIsLogged, setIsError);
+    ler(data, setIsLogged, setIsError,setToken);
   };
-
-  function closeError() {
-    setIsError(false);
-  }
-
+  
   return (
     <>
       {isLogged === false && isError === true && (
@@ -76,19 +84,14 @@ export function Login({ isLogged, setIsLogged, isError, setIsError }) {
           <label>
             <p>Email</p>
             <input type="email" {...register("email")} />
-            {errors.email && (<p>{errors.email.message}</p>)}
+            {errors.email && <p>{errors.email.message}</p>}
           </label>
           <label>
             <p>Senha</p>
             <input type="password" {...register("password")} />
-            {errors.password && (<p>{errors.password.message}</p>)}
+            {errors.password && <p>{errors.password.message}</p>}
           </label>
           <button
-            onClick={
-              isLogged
-                ? () => handleNavigation("/home")
-                : () => handleNavigation("/")
-            }
             type="submit"
             className="btnEntrar"
           >

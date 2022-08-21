@@ -1,14 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import { AuthProvider } from './Components/../Context/Auth';
 import { Rotes } from './Routes';
-import { ler } from './Request';
 
 function App() {
-  
-  
 
   return (
-    <Rotes />
+    <AuthProvider>
+      <Rotes />
+    </AuthProvider>
   );
 }
 

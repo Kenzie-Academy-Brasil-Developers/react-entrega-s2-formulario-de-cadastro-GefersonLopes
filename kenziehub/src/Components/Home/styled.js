@@ -40,6 +40,7 @@ export const Header = styled.header`
         font-size: 12px;
         line-height: 28px;
         text-align: center;
+        cursor: pointer;
 
     }
 
