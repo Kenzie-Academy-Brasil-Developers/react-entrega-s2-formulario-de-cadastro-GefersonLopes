@@ -9,8 +9,8 @@ import { Context } from "../../Context/Auth";
 
 export function Home() {
 
-  const {tecnology,setTecnology,isModal,setIsModal,close} = useContext(Context);
-  const dataSalve = JSON.parse(localStorage.getItem("salveData"));
+  const {close} = useContext(Context);
+  const dataSalve = JSON.parse(localStorage.getItem("salveData") || "{}");
   const token = localStorage.getItem("@token");
   const history = useHistory();
 
@@ -36,7 +36,7 @@ export function Home() {
       <Line></Line>
 
       <div id="conteudo">
-        <ContentMain isModal={isModal} setIsModal={setIsModal} tecnology={tecnology} setTecnology={setTecnology} />
+        <ContentMain />
       </div>
         </> :
       history.push("/")

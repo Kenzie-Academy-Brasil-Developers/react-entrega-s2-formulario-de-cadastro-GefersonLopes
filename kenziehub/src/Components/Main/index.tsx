@@ -5,10 +5,10 @@ import { Content } from "./styled";
 import { Context } from "../../Context/Auth";
 
 import { useContext } from "react";
+import { CreateTecnology } from "../CreateTecnology";
 
 export function ContentMain() {
   const {
-    CreateTecnology,
     techsList,
     RemoveTech,
     modalTrue,
@@ -30,17 +30,19 @@ export function ContentMain() {
         </div>
         {techsList && techsList.length > 0 && (
           <ul>
-            {techsList.map((tech, index) => (
-              <li id={tech.id} key={tech.id} className="list_Content">
+            {techsList.map((tech) => (
+              <li id={`${tech.id}`} key={`${tech.id}`} className="list_Content">
                 <h3 className="title_List">{tech.title}</h3>
                 <div className="container_Rigth">
                   <p>{tech.status}</p>
-                  <button
-                    onClick={(e) => RemoveTech(e.target.id)}
+                  <button id={`${tech.id}`}
+                    onClick={(e) => {
+                      RemoveTech(e.currentTarget.id);
+                    }}
                     className="btnRemoveItem"
                   >
                     <img
-                      id={tech.id}
+                      id={`${tech.id}`}
                       className="imgRemoveItem"
                       src={removeItem}
                       alt="remover item"

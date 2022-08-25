@@ -1,9 +1,9 @@
 import axios from "axios";
 
 
-export function RemoveTech(tech) {
+export function RemoveTech(tech:string) {
   const url = "https://kenziehub.herokuapp.com/";
-  const tokenUser = JSON.parse(localStorage.getItem("@token"));
+  const tokenUser = JSON.parse(localStorage.getItem("@token") || "{}");
 
   axios({
     method: "delete",

@@ -36,7 +36,7 @@ export function CreateTecnology() {
                 </div>
                 <div>
                   <p>Selecionar status</p>
-                  <select name="text" id="" {...register("status")}>
+                  <select /* name="text" */ id="" {...register("status")}>
                     <option value="Iniciante">Iniciante</option>
                     <option value="Intermediário">Intermediário</option>
                     <option value="Avançado">Avançado</option>
