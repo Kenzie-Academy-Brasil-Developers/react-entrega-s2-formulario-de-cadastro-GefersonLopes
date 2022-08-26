@@ -13,6 +13,10 @@ export interface IDataTechs {
     status: string;
 }
 
+interface IDataGet {
+    techs: never[];
+}
+
 interface ISalveResult {
     token: string;
 }
@@ -21,48 +25,53 @@ interface ISalve {
     data?: ISalveResult;
 }
 
-interface IDataList {
+interface IDataPost {
+    email: string;
+    password: string;
+    token: string;
+}
 
+interface IDataList {
     id: number;
     title: string;
     status: string;
-
 }
 
 interface ITechList {
-
-    data:IDataList
+    data: IDataList;
     id: number;
     title: string;
     status: string;
-
 }
 
-interface IArrayObj {
-
-    data:ITechList[];
-
+interface IDataRegister {
+    name:string;
+    email:string;
+    password:string;
+    bio:string;
+    contact:string;
+    course_module:string;
 }
 
 interface IGlobalProps {
     isLogged: boolean | null | undefined;
-    setIsLogged:(value: boolean | undefined) => void;
+    setIsLogged: (value: boolean | undefined) => void;
     isError: boolean;
-    setIsError:(value: boolean) => void;
+    setIsError: (value: boolean) => void;
     isModal: boolean;
-    setIsModal:(value: boolean) => void;
-    techsList:ITechList[] | [];
-    setTechsList:(value: React.SetStateAction<never[]>) => void;
-    RemoveTech:(value: string) => void;
-    modalTrue:() => void;
-    url:string;
-    tokenUser:() => void;
-    close:() => void;
-    salve:ISalve;
-    ler:(value: FieldValues) => void;
-    closeError:() => void;
+    setIsModal: (value: boolean) => void;
+    techsList: ITechList[] | [];
+    setTechsList: (value: React.SetStateAction<never[]>) => void;
+    RemoveTech: (value: string) => void;
+    modalTrue: () => void;
+    url: string;
+    tokenUser: () => void;
+    close: () => void;
+    salve: ISalve;
+    ler: (value: FieldValues) => void;
+    closeError: () => void;
     configToken: object;
-    LeadTechs:() => void;
+    LeadTechs: () => void;
     onSubmit: SubmitHandler<FieldValues>;
     onSubmitRegister: SubmitHandler<FieldValues>;
 }
@@ -89,12 +98,12 @@ export const AuthProvider = ({ children }: IChildrenProviderProps) => {
     /* Função Criar Tecnologias */
     const modalTrue = () => setIsModal(!isModal);
 
-    const onSubmit:SubmitHandler<FieldValues> = (data: FieldValues) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
         const title = data?.title;
         const status = data?.status;
 
         axios
-            .post(
+            .post<IDataTechs>(
                 url + "users/techs",
                 {
                     title,
@@ -131,13 +140,12 @@ export const AuthProvider = ({ children }: IChildrenProviderProps) => {
         return (
             data !== undefined &&
             axios
-                .post(url + "sessions", {
+                .post<IDataPost>(url + "sessions", {
                     email,
                     password,
                 })
                 .then(function (response) {
-                    salve = response;
-                    localStorage.setItem("salveData", JSON.stringify(salve));
+                    localStorage.setItem("salveData", JSON.stringify(response));
                     localStorage.setItem(
                         "@token",
                         JSON.stringify(response.data.token)
@@ -167,7 +175,7 @@ export const AuthProvider = ({ children }: IChildrenProviderProps) => {
     function LeadTechs() {
         useEffect(() => {
             axios
-                .get(url + "profile", configToken)
+                .get<IDataGet>(url + "profile", configToken)
                 .then(function (response) {
                     const data = response.data.techs;
                     //console.log(data)
@@ -179,7 +187,9 @@ export const AuthProvider = ({ children }: IChildrenProviderProps) => {
         }, [techsList]);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    const onSubmitRegister:SubmitHandler<FieldValues> = (data:FieldValues) => {
+    const onSubmitRegister: SubmitHandler<FieldValues> = (
+        data: FieldValues
+    ) => {
         const name = data?.name;
         const email = data?.email;
         const password = data?.password;
@@ -188,7 +198,7 @@ export const AuthProvider = ({ children }: IChildrenProviderProps) => {
         const course_module = data?.course_module;
 
         axios
-            .post("https://kenziehub.herokuapp.com/users", {
+            .post<IDataRegister>("https://kenziehub.herokuapp.com/users", {
                 name,
                 email,
                 password,
